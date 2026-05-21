@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Reusable fragments included by other pages via th:replace -->
+
+<head th:fragment="head(title)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${title}">Pathfinder</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <!-- Loaded synchronously so the theme is applied before first paint -->
+    <script th:src="@{/js/theme.js}"></script>
+</head>
+
+<body>
+<div th:fragment="topbar(showLogout)" class="topbar">
+    <div class="brand">Path<span>finder</span></div>
+    <div style="display:flex; gap:10px; align-items:center;">
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span id="theme-label">Dark</span>
+        </button>
+        <form th:if="${showLogout}" th:action="@{/logout}" method="post" style="margin:0;">
+            <button class="theme-toggle" type="submit">Log out</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

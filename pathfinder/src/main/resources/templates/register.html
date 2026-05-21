@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Sign up · Pathfinder')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar(false)}"></div>
+
+<div class="container">
+    <div class="card">
+        <h1>Create your account</h1>
+        <p class="subtitle">First, tell us who you are.</p>
+
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <!-- Step 1: choose role -->
+        <div id="step-choice">
+            <button class="choice" type="button" onclick="pickRole('STUDENT')">
+                <div class="t">I'm a Student</div>
+                <div class="d">Take the career test and get guidance.</div>
+            </button>
+            <button class="choice" type="button" onclick="pickRole('COUNSELLOR')">
+                <div class="t">I'm a Counsellor / Teacher</div>
+                <div class="d">Create classrooms and guide students.</div>
+            </button>
+        </div>
+
+        <!-- Step 2: the form -->
+        <form id="step-form" class="hidden" th:action="@{/register}" method="post">
+            <input type="hidden" id="role" name="role"/>
+            <p class="subtitle" id="role-note"></p>
+
+            <div id="name-fields">
+                <label for="firstName">First name</label>
+                <input id="firstName" name="firstName" type="text"/>
+                <label for="lastName">Last name</label>
+                <input id="lastName" name="lastName" type="text"/>
+            </div>
+
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" required/>
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required/>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required minlength="6"/>
+
+            <button class="btn" type="submit">Create account</button>
+            <p class="center mt"><a class="link" href="#" onclick="backToChoice(); return false;">Back</a></p>
+        </form>
+
+        <p class="center mt muted">
+            Already have an account? <a class="link" th:href="@{/login}">Log in</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    function pickRole(role) {
+        document.getElementById('role').value = role;
+        document.getElementById('step-choice').classList.add('hidden');
+        document.getElementById('step-form').classList.remove('hidden');
+        var isStudent = role === 'STUDENT';
+        document.getElementById('name-fields').style.display = isStudent ? 'block' : 'none';
+        document.getElementById('role-note').textContent =
+            isStudent ? 'Registering as a Student.' : 'Registering as a Counsellor / Teacher.';
+    }
+    function backToChoice() {
+        document.getElementById('step-form').classList.add('hidden');
+        document.getElementById('step-choice').classList.remove('hidden');
+    }
+</script>
+</body>
+</html>

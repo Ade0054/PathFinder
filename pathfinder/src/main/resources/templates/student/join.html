@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Join a classroom · Pathfinder')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar(true)}"></div>
+
+<div class="container">
+    <div class="card">
+        <h1>Join a classroom</h1>
+        <p class="subtitle">Enter the code your counsellor gave you.</p>
+
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <form th:action="@{/student/join}" method="post">
+            <label for="joinCode">Classroom code</label>
+            <input id="joinCode" name="joinCode" type="text"
+                   placeholder="MCP-XXXXXX" required
+                   style="text-transform:uppercase; letter-spacing:1px;"/>
+            <button class="btn" type="submit">Join</button>
+        </form>
+
+        <p class="center mt"><a class="link" th:href="@{/student/home}">Back to home</a></p>
+    </div>
+</div>
+</body>
+</html>

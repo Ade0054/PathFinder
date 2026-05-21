@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Counsellor · Pathfinder')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar(true)}"></div>
+
+<div class="container">
+    <h1>Your classrooms</h1>
+    <p class="subtitle">Create a classroom, then share its code with your students.</p>
+
+    <div class="card">
+        <h2>Create a classroom</h2>
+        <form th:action="@{/counsellor/classroom/create}" method="post">
+            <label for="classroomName">Classroom name</label>
+            <input id="classroomName" name="classroomName" type="text"
+                   placeholder="e.g. JSS2 Gold" required/>
+            <button class="btn" type="submit">Create &amp; get code</button>
+        </form>
+    </div>
+
+    <div th:if="${classrooms.isEmpty()}" class="empty">
+        No classrooms yet. Create your first one above.
+    </div>
+
+    <div th:unless="${classrooms.isEmpty()}">
+        <div class="row-item" th:each="c : ${classrooms}">
+            <div>
+                <div style="font-weight:600;" th:text="${c.classroomName}">Classroom</div>
+                <div class="muted">Share this code with students</div>
+            </div>
+            <span class="code-pill" th:text="${c.joinCode}">MCP-XXXXXX</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

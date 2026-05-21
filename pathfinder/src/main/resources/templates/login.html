@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Log in · Pathfinder')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar(false)}"></div>
+
+<div class="container">
+    <div class="card">
+        <h1>Welcome back</h1>
+        <p class="subtitle">Log in to continue your career journey.</p>
+
+        <div th:if="${param.error}" class="alert alert-error">
+            Wrong username or password. Please try again.
+        </div>
+        <div th:if="${param.logout}" class="alert alert-ok">You have been logged out.</div>
+        <div th:if="${param.registered}" class="alert alert-ok">
+            Account created. You can log in now.
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" required autofocus/>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required/>
+
+            <button class="btn" type="submit">Log in</button>
+        </form>
+
+        <p class="center mt muted">
+            No account yet?
+            <a class="link" th:href="@{/register}">Sign up</a>
+        </p>
+    </div>
+
+    <p class="center muted">Demo counsellor — user: <b>counsellor</b> · pass: <b>password123</b></p>
+</div>
+</body>
+</html>

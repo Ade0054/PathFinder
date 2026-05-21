@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Home · Pathfinder')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar(true)}"></div>
+
+<div class="container">
+    <h1>Hi, <span th:text="${username}">student</span> 👋</h1>
+    <p class="subtitle">Your classrooms and available tests appear here.</p>
+
+    <!-- No classroom yet -->
+    <div th:if="${!hasClassroom}" class="empty">
+        <p>You are not in any classroom yet.</p>
+        <p class="muted mt">Ask your counsellor for a join code, then tap below.</p>
+        <a class="btn mt" th:href="@{/student/join}" style="display:inline-flex; width:auto; padding:10px 20px;">
+            Join a classroom
+        </a>
+    </div>
+
+    <!-- Has classrooms -->
+    <div th:if="${hasClassroom}">
+        <div class="row-item" th:each="m : ${memberships}">
+            <div>
+                <div style="font-weight:600;" th:text="${m.classroom.classroomName}">Classroom</div>
+                <div class="muted">Tests available soon</div>
+            </div>
+            <span class="code-pill" th:text="${m.classroom.joinCode}">MCP-XXXXXX</span>
+        </div>
+        <a class="btn-outline btn mt" th:href="@{/student/join}">Join another classroom</a>
+    </div>
+</div>
+</body>
+</html>

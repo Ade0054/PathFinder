@@ -1,0 +1,21 @@
+# ===== SECRETS — never commit these =====
+# application.yml holds the DB password + Gemini API key in this project.
+# We commit application-example.yml instead (no secrets) and keep the real one local.
+src/main/resources/application.yml
+.env
+
+# ===== Build output =====
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# ===== IntelliJ IDEA =====
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ===== Logs / OS =====
+*.log
+.DS_Store
+Thumbs.db
