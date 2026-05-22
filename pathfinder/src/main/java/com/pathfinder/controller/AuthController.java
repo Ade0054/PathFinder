@@ -1,5 +1,6 @@
 package com.pathfinder.controller;
 
+import com.pathfinder.model.enums.RoleType;
 import com.pathfinder.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,9 @@ public class AuthController {
                              @RequestParam(required = false) String lastName,
                              Model model) {
         try {
-            authService.register(username, password, email, role, firstName, lastName);
+            //converting the string to the enum form
+            RoleType roleType = RoleType.valueOf(role.toUpperCase());
+            authService.register(username, password, email, roleType, firstName, lastName);
             return "redirect:/login?registered";
         } catch (IllegalArgumentException ex) {
             model.addAttribute("error", ex.getMessage());

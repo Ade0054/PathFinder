@@ -3,6 +3,7 @@ package com.pathfinder.service;
 import com.pathfinder.model.Role;
 import com.pathfinder.model.StudentProfile;
 import com.pathfinder.model.User;
+import com.pathfinder.model.enums.RoleType;
 import com.pathfinder.repository.RoleRepository;
 import com.pathfinder.repository.StudentProfileRepository;
 import com.pathfinder.repository.UserRepository;
@@ -47,7 +48,8 @@ public class AuthService {
         user = userRepository.save(user);
 
         // Students get a profile row
-        if ("STUDENT".equals(roleType)) {
+        // Use the enum constant instead of a string comparison
+        if (roleType == RoleType.STUDENT) {
             StudentProfile profile = StudentProfile.builder()
                     .user(user)
                     .firstName(firstName)
